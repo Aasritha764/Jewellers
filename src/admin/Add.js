@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import config from '../Config';
+// import config from '../Config';
 
 const Add = () => {
     const [formData, setFormData] = useState({
@@ -24,10 +24,11 @@ const Add = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const dateTimestamp = new Date(formData.date).getTime();
-
+    
         try {
-            const response = await axios.post(`${config.url}/insertcustomers`, { ...formData, date: dateTimestamp });
-
+            // Insert customer data into the database
+            const response = await axios.post("http://localhost:2033/insertcustomers", { ...formData, date: dateTimestamp });
+    
             if (response.status === 200) {
                 setFormData({
                     date: '',
@@ -39,7 +40,16 @@ const Add = () => {
                     itemtype: '',
                     amount: '',
                 });
+    
+                // Send SMS to the entered phone number
+                await axios.post("http://localhost:2033/sendsms", {
+                    phonenumber: formData.phonenumber,
+                    billnumber: formData.billnumber,
+                    date: formData.date,
+                    amount: formData.amount,
+                });
             }
+    
             setMessage(response.data);
             setError('');
         } catch (error) {
@@ -51,6 +61,7 @@ const Add = () => {
             setMessage('');
         }
     };
+    
 
     return (
         <div>
@@ -80,7 +91,7 @@ const Add = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor='phonenumber'>Phone Number</label>
-                        <input type="number" id='phonenumber' name='phonenumber' value={formData.phonenumber} onChange={handleChange} />
+                        <input type="number" id='phonenumber' name='phonenumber' value={formData.phonenumber} onChange={handleChange} placeholder='Add 91 in starting' />
                     </div>
                     <div className="form-group">
                         <label htmlFor='itemtype'>Item Type</label>
@@ -91,7 +102,8 @@ const Add = () => {
                         <input type="number" id='amount' name='amount' value={formData.amount} onChange={handleChange} />
                     </div>
                     <button className="button" type='submit' onClick={handleSubmit}>Add</button>
-                </form>
+                    
+                    </form>
             </div>
         </div>
     );

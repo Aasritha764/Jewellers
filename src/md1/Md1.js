@@ -68,7 +68,7 @@ const MD1 = () => {
             <label htmlFor='billnumbermd1'>Bill Number At Md1</label>
             <input type="number" id='billnumbermd1' name='billnumbermd1' onChange={handleChange} value={formData.billnumbermd1}   />
           </div>
-          <div className="form-group">
+          <div className="form-group"> 
             <label htmlFor='name'>Name</label>
             <input type="text" id='name' name='name' onChange={handleChange} value={formData.name} disabled style={{ backgroundColor: '#d3d3d3', color: '#000' }} />
           </div>

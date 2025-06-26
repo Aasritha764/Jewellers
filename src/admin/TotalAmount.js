@@ -72,7 +72,7 @@ const styles = {
     textAlign: 'left',
   },
   button: {
-    marginTop: '20px',
+    marginTop: '10px',
     padding: '10px 20px',
     fontSize: '16px',
     color: '#fff',

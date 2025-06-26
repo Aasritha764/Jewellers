@@ -1,10 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import config from '../Config';
 
 const Add = () => {
   const location = useLocation();
+  const navigate = useNavigate();
     const [formData, setFormData] = useState({
         date: '',
         billnumber: '',
@@ -64,6 +65,7 @@ const Add = () => {
             }
             setMessage(response.data);
             setError('');
+            navigate('/takenaway');
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setError(error.response.data);
@@ -72,7 +74,9 @@ const Add = () => {
             }
             setMessage('');
         }
+        
     };
+    
 
     return (
         <div>

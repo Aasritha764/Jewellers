@@ -28,7 +28,7 @@ export default function ViewCustomers() {
 
   const fetchViewCustomers = useCallback(async () => {
     try {
-      const response = await axios.get(`${config.url}/viewcustomers`);
+      const response = await axios.get("http://localhost:2033/viewcustomers");
       const customersWithFormattedDate = response.data.map(customer => ({
         ...customer,
         date: new Date(customer.date).toLocaleDateString('en-GB')
@@ -55,15 +55,18 @@ export default function ViewCustomers() {
 
   const deleteCustomer = async (billnumber) => {
     try {
+      
       const thereat = await getmdbybillno(billnumber);
       if (thereat === 'MD1') {
         await axios.delete(`${config.url}/md1deletecustomer/${billnumber}`);
-      } else if (thereat === 'MD2') {
+      } else if (thereat === 'MD2') 
+        {
         await axios.delete(`${config.url}/md2deletecustomer/${billnumber}`);
       }
-
+      
       await axios.delete(`${config.url}/deletecustomer/${billnumber}`);
       window.location.reload();
+      
 
       fetchViewCustomers();
     } catch (error) {
@@ -142,7 +145,7 @@ export default function ViewCustomers() {
                 <td>{customer.amount}</td>
                 <td>{customer.thereat}</td>
                 <td>
-                  <button onClick={() => handleTakeAwayClick(customer)} className='button'>Take Away</button>
+                  <button onClick={() => handleTakeAwayClick(customer)} className='button'>Calculate Intrest</button>
                 </td>
                 <td>
                   <button onClick={() => handleMD1Click(customer)} className='button'>MD1</button>

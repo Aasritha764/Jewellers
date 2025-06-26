@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import MainNavBar from './admin/MainNavBar';
-import bgimage from './images/1110140-uhd_3840_2160_30fps.mp4';
+import bgimage from './images/8370053-hd_1920_1080_30fps.mp4';
 import './App.css'; // Import the CSS file for styling
 
 function App() {
